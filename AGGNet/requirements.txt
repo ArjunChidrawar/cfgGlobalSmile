@@ -1,0 +1,9 @@
+torchsummary
+numpy
+Pillow
+opencv-python
+pyyaml
+scipy
+tqdm
+lpips
+torchvision
