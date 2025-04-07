@@ -18,8 +18,8 @@ train:
     batch_size: 16
     num_work: 4
     config:
-        data_root: "/Users/arjunchidrawar/Documents/GitHub/AGGNet/data/dataset/celeba_hq_256"
-        prior_root: "/Users/arjunchidrawar/Documents/GitHub/AGGNet/data/dataset/celeba_hq_256"
+        data_root: "/Users/arjunchidrawar/Desktop/cfgGlobalSmile/AGGNet/data/celeba_hq_256"
+        prior_root: "/Users/arjunchidrawar/Desktop/cfgGlobalSmile/AGGNet/data/celeba_hq_256"
         mask_config: 
                   mask_mode: "irregular"
                   root: "./mask/irregular/"
