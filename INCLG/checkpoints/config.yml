@@ -1,4 +1,4 @@
-MODE: 2             # 1: train, 2: test
+MODE: 1             # 1: train, 2: test
 MODEL: 2            # 2: inpaint mode
 MASK: 6             # 0: no mask, 1: random block, 2: center mask, 3: external, 4: 50% external, 50% random block, 5: (50% no mask, 25% ramdom block, 25% external) 6: external non-random
 SEED: 10            # random seed
@@ -6,28 +6,28 @@ GPU: [0]            # list of gpu ids
 AUGMENTATION_TRAIN: 0
 LANDMARK_POINTS: 68 # 68 for celeba
 
-TRAIN_INPAINT_IMAGE_FLIST:
+TRAIN_INPAINT_IMAGE_FLIST: /Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/regular_flist.txt
 VAL_INPAINT_IMAGE_FLIST:
 TEST_INPAINT_IMAGE_FLIST: 
 
 
 
-TRAIN_INPAINT_LANDMARK_FLIST:
-VAL_INPAINT_LANDMARK_FLIST:
+TRAIN_INPAINT_LANDMARK_FLIST: /Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/landmarks_flist.txt
+VAL_INPAINT_LANDMARK_FLIST: 
 TEST_INPAINT_LANDMARK_FLIST: 
 
-TRAIN_MASK_FLIST:
+TRAIN_MASK_FLIST: /Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/masked_flist.txt
 VAL_MASK_FLIST:
 TEST_MASK_FLIST: 
 
-LR: 0.000292                    # learning rate
+LR: 0.000292                  # learning rate
 D2G_LR: 0.1                   # discriminator/generator learning rate ratio
 BETA1: 0.0                    # adam optimizer beta1
 BETA2: 0.9                    # adam optimizer beta2
-BATCH_SIZE: 1               # input batch size for training
+BATCH_SIZE: 1                 # input batch size for training
 INPUT_SIZE: 256               # input image size for training 0 for original size
-MAX_ITERS: 130000                # maximum number of iterations to train the model
-LR_Decay: 0.78                   # learning rate decay
+MAX_ITERS: 130000             # maximum number of iterations to train the model
+LR_Decay: 0.78                # learning rate decay
 
 L1_LOSS_WEIGHT: 1             # l1 loss weight
 STYLE_LOSS_WEIGHT: 250        # style loss weight
@@ -40,10 +40,10 @@ GAN_LOSS: lsgan               # nsgan | lsgan | hinge
 GAN_POOL_SIZE: 0              # fake images pool size
 
 SAVE_INTERVAL: 1000           # how many iterations to wait before saving model (0: never)
-SAMPLE_INTERVAL: 0       # how many iterations to wait before sampling (0: never)
-SAMPLE_SIZE: 2               # number of images to sample
+SAMPLE_INTERVAL: 0            # how many iterations to wait before sampling (0: never)
+SAMPLE_SIZE: 2                # number of images to sample
 EVAL_INTERVAL: 0              # how many iterations to wait before model evaluation (0: never)
-LOG_INTERVAL: 100              # how many iterations to wait before logging training status (0: never)
+LOG_INTERVAL: 100             # how many iterations to wait before logging training status (0: never)
 
 
 RESULT: /results
