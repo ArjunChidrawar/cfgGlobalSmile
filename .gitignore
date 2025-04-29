@@ -6,3 +6,15 @@ INCLG/landmarks/
 INCLG/masked_images/
 INCLG/celeba_hq_256/
 INCLG/myEnv/
+INCLG/env/
+env310/
+rosetta_env/
+venv/
+.venv/
+env/
+ENV/
+__pycache__/
+*.pyc
+.vscode/
+INCLG/numpy/
+.DS_Store

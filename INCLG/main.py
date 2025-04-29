@@ -48,11 +48,11 @@ def main(mode=None):
 
 
     # build the model and initialize
-    
+
     model = NCLG(config)
-    # checkpoint = torch.load('/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/InpaintingModel_dis.pth', map_location='cpu')
-    # model.load_state_dict(checkpoint)
-    model.load()
+    checkpoint = torch.load('/Users/yuezhuo/cfgGlobalSmile/INCLG/checkpoints/InpaintingModel_dis.pth', map_location='cpu')
+    model.load_state_dict(checkpoint)
+    # model.load()
 
 
     # model training
@@ -95,7 +95,7 @@ def load_config(mode=None):
     """
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--path', '--checkpoints', type=str, default='/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/checkpoints',
+    parser.add_argument('--path', '--checkpoints', type=str, default='/Users/yuezhuo/cfgGlobalSmile/INCLG/checkpoints',
                         help='model checkpoints path (default: ./checkpoints)')
 
     parser.add_argument('--model', type=int, default='2', choices=[1, 2, 3],
