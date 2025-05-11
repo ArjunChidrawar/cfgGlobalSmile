@@ -13,13 +13,31 @@ def create_dir(dir):
     if not os.path.exists(dir):
         os.makedirs(dir)
 
-
 def create_mask(width, height, mask_width, mask_height, x=None, y=None):
     mask = np.zeros((height, width))
     mask_x = x if x is not None else random.randint(0, width - mask_width)
     mask_y = y if y is not None else random.randint(0, height - mask_height)
     mask[mask_y:mask_y + mask_height, mask_x:mask_x + mask_width] = 1
     return mask
+# def create_mask(width, height, coords):
+#     """
+#     Create a binary mask of shape (height, width) with 1s in the rectangle
+#     whose top-left corner is (x1,y1) and bottom-right corner is (x2,y2).
+
+#     coords: tuple (x1, y1, x2, y2)
+#     """
+#     x1, y1, x2, y2 = coords
+
+#     # ensure (x1,y1) is truly top-left, (x2,y2) bottom-right
+#     x0, x1 = sorted([x1, x2])
+#     y0, y1 = sorted([y1, y2])
+
+#     mask = np.zeros((height, width), dtype=np.uint8)
+#     # +1 because slice end is exclusive and we want to include the bottom/right pixels
+#     mask[y0 : y1 + 1, x0 : x1 + 1] = 1
+
+#     return mask
+    
 
 
 def stitch_images(inputs, *outputs, img_per_row=2):

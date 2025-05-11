@@ -50,8 +50,6 @@ def main(mode=None):
     # build the model and initialize
     
     model = NCLG(config)
-    # checkpoint = torch.load('/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/InpaintingModel_dis.pth', map_location='cpu')
-    # model.load_state_dict(checkpoint)
     model.load()
 
 

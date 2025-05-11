@@ -103,13 +103,27 @@ class Dataset(torch.utils.data.Dataset):
         if mask_type == 4:
             mask_type = 1 if np.random.binomial(1, 0.5) == 1 else 3
 
-        # random block
+        # # random block
+        # x1, y1 = 90,  165
+        # x2, y2 = 150, 205
+        # coords = (x1,y1,x2,y2)
         if mask_type == 1:
             return create_mask(imgw, imgh, imgw // 2, imgh // 2)
 
+        mask_w = imgw * 3 // 8     #  96
+
+        # keep it 1/8 of the height (32px)
+        mask_h = imgh // 8         #  32
+
+        # center horizontally
+        x = (imgw - mask_w) // 2   #  80
+
+        # place at 5/8 of the height (160px) instead of 3/4 (192px)
+        y = 5 * imgh // 8          # 160
         # center mask
         if mask_type == 2:
-            return create_mask(imgw, imgh, imgw//2, imgh//2, x = imgw//4, y = imgh//4)
+            return create_mask(imgw, imgh, mask_w, mask_h, x=x, y=y)
+            # return create_mask(imgw, imgh, imgw//4, imgh//4, x = imgw//6, y = imgh//6)
 
         # external
         if mask_type == 3:
@@ -133,6 +147,19 @@ class Dataset(torch.utils.data.Dataset):
                 mask = (mask > 0).astype(np.uint8) * 255
                 mask = self.resize(mask, imgh, imgw, centerCrop=False)
                 return mask
+        if mask_type == 8:
+            # load matching mask by index
+            mask_path = self.mask_data[index]
+            mask = imread(mask_path)  
+            # resize to model input
+            mask = self.resize(mask, imgh, imgw, centerCrop=False)
+            # if RGB, convert to grayscale
+            if mask.ndim == 3:
+                mask = rgb2gray(mask)
+            # threshold to binary (0 or 255)
+            mask = (mask > 0).astype(np.uint8) * 255
+            return mask
+
 
 
     def to_tensor(self, img):

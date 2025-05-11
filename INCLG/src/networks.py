@@ -159,7 +159,8 @@ class InpaintGenerator(BaseNetwork):
         landmark_share = landmark_share * 128
         landmark_share[landmark_share >= 127] = 127
         landmark_share[landmark_share < 0] = 0
-        landmark_map = torch.zeros((landmark_share.shape[0],68,128,128)).cuda()
+        # landmark_map = torch.zeros((landmark_share.shape[0],68,128,128)).cuda()
+        landmark_map = torch.zeros((landmark_share.shape[0],68,128,128))
 
         for i in range(landmark_share.shape[0]):
             for p in range(landmark_share.shape[1]):

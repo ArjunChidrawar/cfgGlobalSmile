@@ -3,8 +3,8 @@ import argparse
 import numpy as np
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--path', type=str, default= '/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/landmarks_txt',help='')
-parser.add_argument('--output', type=str, default='/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/landmarks_flist.txt',help='')
+parser.add_argument('--path', type=str, default= '/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/cleft_landmarks_text',help='')
+parser.add_argument('--output', type=str, default='/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/cleft_landmarks_flist.txt',help='')
 args = parser.parse_args()
 
 ext = {'.jpg', '.png','.txt'}

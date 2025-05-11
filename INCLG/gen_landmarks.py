@@ -4,9 +4,9 @@ import cv2
 import numpy as np
 import os
 
-input_dir = '/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/celeba_hq_256'
-output_dir = '/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/landmarks'
-txt_output_dir = '/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/landmarks_txt'
+input_dir = '/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/After_no_mask_resized'
+output_dir = '/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/cleft_landmarks'
+txt_output_dir = '/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/cleft_landmarks_text'
 
 os.makedirs(output_dir, exist_ok=True)
 os.makedirs(txt_output_dir, exist_ok=True)
