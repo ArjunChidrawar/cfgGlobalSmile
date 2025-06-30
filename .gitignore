@@ -6,3 +6,24 @@ INCLG/landmarks/
 INCLG/masked_images/
 INCLG/celeba_hq_256/
 INCLG/myEnv/
+
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*.so
+
+# Environment folders
+myEnv/
+env/
+venv/
+.smileenv/
+.idea/
+
+# Jupyter/IPython
+.ipynb_checkpoints/
+
+# macOS system files
+.DS_Store
+
+# VSCode settings
+.vscode/
