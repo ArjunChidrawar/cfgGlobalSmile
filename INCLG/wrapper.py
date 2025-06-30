@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# python wrapper.py --folder script_test --photo photo_01.jpg --mask masked_01.jpg
+
 import os
 import argparse
 import shutil
