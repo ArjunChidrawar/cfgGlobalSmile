@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+# python wrapper.py --folder script_test --photo photo_01.jpg --mask masked_01.jpg
 import os
 import argparse
 import shutil
@@ -106,7 +106,7 @@ def main():
     print("Binary mask saved:", bin_mask)
 
     # 4) patch config & run test
-    CONFIG_PATH = '/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/checkpoints/config.yml'
+    CONFIG_PATH = os.path.join(os.path.dirname(__file__), 'checkpoints', 'config.yml')
 
     def make_flist(tmp_dir, name, src_dir, filename):
         p = os.path.join(tmp_dir, name)
