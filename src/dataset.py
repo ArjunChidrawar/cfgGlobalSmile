@@ -30,7 +30,7 @@ class Dataset(torch.utils.data.Dataset):
 
         # in test mode, there's a one-to-one relationship between mask and image
         # masks are loaded non random
-       
+
 
     def __len__(self):
         return len(self.data)
@@ -49,6 +49,7 @@ class Dataset(torch.utils.data.Dataset):
         size = self.input_size
 
         # load image
+        print(f"Index: {index}, self.data[index]: {self.data[index]}")
         img = imread(self.data[index])
 
         if self.config.MODEL == 2:
@@ -138,7 +139,8 @@ class Dataset(torch.utils.data.Dataset):
             mask = imread(self.mask_data[index%len(self.mask_data)])
             mask = self.resize(mask, imgh, imgw, centerCrop=False)
             mask = rgb2gray(mask)
-            mask = (mask > 100).astype(np.uint8) * 255
+            # Fix: grayscale values are in [0.0, 1.0], not [0, 255]
+            mask = (mask > 0.1).astype(np.uint8) * 255
 
             return mask
         # random mask
@@ -150,7 +152,7 @@ class Dataset(torch.utils.data.Dataset):
         if mask_type == 8:
             # load matching mask by index
             mask_path = self.mask_data[index]
-            mask = imread(mask_path)  
+            mask = imread(mask_path)
             # resize to model input
             mask = self.resize(mask, imgh, imgw, centerCrop=False)
             # if RGB, convert to grayscale
@@ -189,15 +191,16 @@ class Dataset(torch.utils.data.Dataset):
             if os.path.isdir(flist):
                 flist = list(glob.glob(flist + '/*.jpg')) + list(glob.glob(flist + '/*.png'))
                 flist.sort()
+                print(f"Flist: {flist[0]}")
                 return flist
 
             if os.path.isfile(flist):
                 try:
-                    return np.genfromtxt(flist, dtype=np.str, encoding='utf-8')
+                    return np.genfromtxt(flist, dtype=np.str_, encoding='utf-8')
                 except Exception as e:
                     print(e)
                     return [flist]
-        
+
         return []
 
     def create_iterator(self, batch_size):
@@ -265,8 +268,8 @@ def np_free_form_mask(maxVertex, maxLength, maxBrushWidth, maxAngle, h, w):
         brushWidth = np.random.randint(10, maxBrushWidth + 1) // 2 * 2
         nextY = startY + length * np.cos(angle)
         nextX = startX + length * np.sin(angle)
-        nextY = np.maximum(np.minimum(nextY, h - 1), 0).astype(np.int)
-        nextX = np.maximum(np.minimum(nextX, w - 1), 0).astype(np.int)
+        nextY = np.maximum(np.minimum(nextY, h - 1), 0).astype(np.int_)
+        nextX = np.maximum(np.minimum(nextX, w - 1), 0).astype(np.int_)
         cv2.line(mask, (startY, startX), (nextY, nextX), 1, brushWidth)
         cv2.circle(mask, (startY, startX), brushWidth // 2, 2)
         startY, startX = nextY, nextX

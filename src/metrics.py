@@ -14,9 +14,8 @@ class PSNR(nn.Module):
 
     def __call__(self, a, b):
         mse = torch.mean((a.float() - b.float()) ** 2)
-    
+
         if mse == 0:
-            return 0
+            return torch.tensor(0.0, device=a.device)
 
         return self.max_val - 10 * torch.log(mse) / self.base10
-
