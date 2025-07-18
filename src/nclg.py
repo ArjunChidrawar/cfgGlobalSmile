@@ -132,16 +132,17 @@ class NCLG():
                     iteration = self.inpaint_model.iteration
 
 
-                if iteration >= max_iteration:
-                    keep_training = False
-                    break
-
                 logs = [
                     ("epoch", epoch),
                     ("iter", iteration),
                 ] + logs
 
                 progbar.add(len(images), values=logs if self.config.VERBOSE else [x for x in logs if not x[0].startswith('l_')])
+
+                # Check iteration count after processing the batch
+                if iteration >= max_iteration:
+                    keep_training = False
+                    break
 
                 ## visialization
                 if iteration % 10 == 0:
@@ -376,4 +377,3 @@ class NCLG():
         img = img * 255.0
         img = img.permute(0, 2, 3, 1)
         return img.int()
-
