@@ -57,7 +57,10 @@ def main(mode=None):
     if config.MODE == 1:
         config.print()
         print('\nstart training...\n')
-        model.train()
+        # Use config for k-fold and early stopping
+        k_folds = getattr(config, 'K_FOLDS', 1)
+        patience = getattr(config, 'EARLY_STOPPING_PATIENCE', 5)
+        model.train(k_folds=k_folds, patience=patience)
 
     # model test
     elif config.MODE == 2:

@@ -67,6 +67,9 @@ for out_path in output_images:
 
 # Save results to CSV
 if results:
+    # Ensure output directory exists
+    os.makedirs(os.path.dirname(csv_path), exist_ok=True)
+
     with open(csv_path, 'w', newline='') as csvfile:
         fieldnames = ['Image', 'PSNR', 'SSIM', 'MAE']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -78,7 +81,6 @@ if results:
     ssim_values = [r['SSIM'] for r in results]
     mae_values = [r['MAE'] for r in results]
 
-    # Statistical metrics for each metric
     stats = {
         'PSNR': {
             'Mean': np.mean(psnr_values),
@@ -115,12 +117,18 @@ if results:
         }
     }
 
-    # Save statistics to a separate CSV
-    stats_csv_path = '/Users/tinazhang/Desktop/projects/cfgGlobalSmile/outputs/evaluation_statistics.csv'
-    with open(stats_csv_path, 'w', newline='') as csvfile:
+    # Save statistics to a separate CSV (append if exists)
+    stats_csv_path = 'outputs/evaluation_statistics.csv'
+    os.makedirs(os.path.dirname(stats_csv_path), exist_ok=True)
+    file_exists = os.path.isfile(stats_csv_path)
+
+    with open(stats_csv_path, 'a', newline='') as csvfile:
         fieldnames = ['Metric', 'Mean', 'Median', 'Std', 'Min', 'Max', 'Range', 'Q1', 'Q3', 'IQR']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
+
+        if not file_exists:
+            writer.writeheader()
+
         for metric, values in stats.items():
             writer.writerow({'Metric': metric, **values})
 

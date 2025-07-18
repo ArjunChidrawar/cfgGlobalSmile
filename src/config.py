@@ -7,7 +7,7 @@ class Config(dict):
             self._yaml = f.read()
             self._dict = yaml.safe_load(self._yaml)
             self._dict['PATH'] = os.path.dirname(config_path)
- 
+
     def __getattr__(self, name):
         if self._dict.get(name) is not None:
             return self._dict[name]
@@ -57,4 +57,7 @@ DEFAULT_CONFIG = {
     'SAMPLE_SIZE': 12,              # number of images to sample
     'EVAL_INTERVAL': 0,             # how many iterations to wait before model evaluation (0: never)
     'LOG_INTERVAL': 10,             # how many iterations to wait before logging training status (0: never)
+    # New options for cross-validation and early stopping
+    'K_FOLDS': 1,                  # number of folds for k-fold cross-validation (1 = no CV)
+    'EARLY_STOPPING_PATIENCE': 5,  # patience for early stopping
 }

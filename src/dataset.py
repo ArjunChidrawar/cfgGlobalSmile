@@ -49,7 +49,6 @@ class Dataset(torch.utils.data.Dataset):
         size = self.input_size
 
         # load image
-        print(f"Index: {index}, self.data[index]: {self.data[index]}")
         img = imread(self.data[index])
 
         if self.config.MODEL == 2:
@@ -191,7 +190,6 @@ class Dataset(torch.utils.data.Dataset):
             if os.path.isdir(flist):
                 flist = list(glob.glob(flist + '/*.jpg')) + list(glob.glob(flist + '/*.png'))
                 flist.sort()
-                print(f"Flist: {flist[0]}")
                 return flist
 
             if os.path.isfile(flist):

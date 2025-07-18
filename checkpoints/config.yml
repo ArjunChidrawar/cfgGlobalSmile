@@ -10,16 +10,16 @@ PATH: checkpoints
 
 TRAIN_INPAINT_IMAGE_FLIST: input_flist.txt
 VAL_INPAINT_IMAGE_FLIST:
-TEST_INPAINT_IMAGE_FLIST:
+TEST_INPAINT_IMAGE_FLIST: input_flist.txt
 
 
 TRAIN_INPAINT_LANDMARK_FLIST: cleft_landmarks_flist.txt
 VAL_INPAINT_LANDMARK_FLIST:
-TEST_INPAINT_LANDMARK_FLIST:
+TEST_INPAINT_LANDMARK_FLIST: cleft_landmarks_flist.txt
 
 TRAIN_MASK_FLIST: mask_flist.txt
 VAL_MASK_FLIST:
-TEST_MASK_FLIST:
+TEST_MASK_FLIST: mask_flist.txt
 
 LR: 0.000292                  # learning rate
 D2G_LR: 0.1                   # discriminator/generator learning rate ratio
@@ -46,5 +46,8 @@ SAMPLE_SIZE: 2                # number of images to sample
 EVAL_INTERVAL: 0              # how many iterations to wait before model evaluation (0: never)
 LOG_INTERVAL: 100             # how many iterations to wait before logging training status (0: never)
 
+# Cross-validation and early stopping
+K_FOLDS: 5                   # number of folds for k-fold cross-validation (1 = no CV)
+EARLY_STOPPING_PATIENCE: 5   # patience for early stopping
 
 RESULTS: results
