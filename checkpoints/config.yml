@@ -8,18 +8,18 @@ LANDMARK_POINTS: 68 # 68 for celeba
 
 PATH: checkpoints
 
-TRAIN_INPAINT_IMAGE_FLIST: input_flist.txt
+TRAIN_INPAINT_IMAGE_FLIST: augmented_no_mask_flist.txt
 VAL_INPAINT_IMAGE_FLIST:
-TEST_INPAINT_IMAGE_FLIST: input_flist.txt
+TEST_INPAINT_IMAGE_FLIST: augmented_no_mask_flist.txt
 
 
-TRAIN_INPAINT_LANDMARK_FLIST: cleft_landmarks_flist.txt
+TRAIN_INPAINT_LANDMARK_FLIST: augmented_landmarks_flist.txt
 VAL_INPAINT_LANDMARK_FLIST:
-TEST_INPAINT_LANDMARK_FLIST: cleft_landmarks_flist.txt
+TEST_INPAINT_LANDMARK_FLIST: augmented_landmarks_flist.txt
 
-TRAIN_MASK_FLIST: mask_flist.txt
+TRAIN_MASK_FLIST: augmented_mask_flist.txt
 VAL_MASK_FLIST:
-TEST_MASK_FLIST: mask_flist.txt
+TEST_MASK_FLIST: augmented_mask_flist.txt
 
 LR: 0.000292                  # learning rate
 D2G_LR: 0.1                   # discriminator/generator learning rate ratio

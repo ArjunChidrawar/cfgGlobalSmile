@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 
 # Directories
 outputs_dir = 'results/inpaint/result'
-postop_dir = 'After_no_mask_resized'
-save_dir = 'outputs/side_by_side_comparisons'
+postop_dir = 'augment/augmented_no_mask'
+save_dir = 'outputs_2/side_by_side_comparisons'
 os.makedirs(save_dir, exist_ok=True)
 
 # Gather output images
@@ -14,7 +14,7 @@ output_images = sorted(glob.glob(os.path.join(outputs_dir, '*.png')) + glob.glob
 
 for out_path in output_images:
     base = os.path.splitext(os.path.basename(out_path))[0]
-    postop_path = os.path.join(postop_dir, f"{base}.jpg")
+    postop_path = os.path.join(postop_dir, f"{base}.png")
     if os.path.exists(postop_path):
         output_img = imread(out_path)
         postop_img = imread(postop_path)

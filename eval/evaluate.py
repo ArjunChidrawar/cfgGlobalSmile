@@ -7,10 +7,10 @@ import numpy as np
 
 # Directories
 outputs_dir = 'results/inpaint/result'
-postop_dir = 'After_no_mask_resized'
+postop_dir = 'augment/augmented_no_mask'
 
 # Output CSV
-csv_path = 'outputs/evaluation_results.csv'
+csv_path = 'outputs_2/evaluation_results.csv'
 
 # Helper to get base name without extension
 get_base = lambda path: os.path.splitext(os.path.basename(path))[0]
@@ -23,7 +23,7 @@ results = []
 for out_path in output_images:
     base = get_base(out_path)
     # Try to find the corresponding post-op image
-    postop_path = os.path.join(postop_dir, f"{base}.jpg")
+    postop_path = os.path.join(postop_dir, f"{base}.png")
 
     if os.path.exists(postop_path):
         try:
@@ -118,7 +118,7 @@ if results:
     }
 
     # Save statistics to a separate CSV (append if exists)
-    stats_csv_path = 'outputs/evaluation_statistics.csv'
+    stats_csv_path = 'outputs_2/evaluation_statistics.csv'
     os.makedirs(os.path.dirname(stats_csv_path), exist_ok=True)
     file_exists = os.path.isfile(stats_csv_path)
 
