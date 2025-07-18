@@ -4,9 +4,9 @@ import cv2
 import numpy as np
 import os
 
-input_dir = 'After_no_mask_resized'
-output_dir = 'cleft_landmarks'
-txt_output_dir = 'cleft_landmarks_text'
+input_dir = 'augment/augmented_no_mask'
+output_dir = 'augmented_cleft_landmarks'
+txt_output_dir = 'augmented_cleft_landmarks_text'
 
 os.makedirs(output_dir, exist_ok=True)
 os.makedirs(txt_output_dir, exist_ok=True)
@@ -16,7 +16,7 @@ fa = face_alignment.FaceAlignment(face_alignment.LandmarksType.TWO_D,
 
 count = 0
 for file_name in os.listdir(input_dir):
-    if file_name.lower().endswith('.jpg'):
+    if file_name.lower().endswith('.png'):
         file_path = os.path.join(input_dir, file_name)
         img = io.imread(file_path)
 
@@ -37,7 +37,7 @@ for file_name in os.listdir(input_dir):
         img_bgr = cv2.cvtColor(img_landmarks, cv2.COLOR_RGB2BGR)
         landmarked_jpg_path = os.path.join(
             output_dir,
-            file_name.replace('.jpg', '_landmarks.jpg')
+            file_name.replace('.png', '_landmarks.png')
         )
         cv2.imwrite(landmarked_jpg_path, img_bgr)
 
@@ -49,7 +49,7 @@ for file_name in os.listdir(input_dir):
         # Create the txt file path
         txt_file_path = os.path.join(
             txt_output_dir,
-            file_name.replace('.jpg', '.txt')
+            file_name.replace('.png', '.txt')
         )
         with open(txt_file_path, "w") as f:
             f.write(line + "\n")  # one line of coords
