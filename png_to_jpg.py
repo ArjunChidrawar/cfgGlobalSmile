@@ -1,7 +1,7 @@
 import os
 from PIL import Image
 
-folder = "/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/After_no_mask_resized"
+folder = "/Users/tinazhang/Desktop/projects/cfgGlobalSmile/After_no_mask_resized"
 
 for fname in os.listdir(folder):
     if not fname.lower().endswith(".png"):

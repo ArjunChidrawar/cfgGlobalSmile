@@ -49,6 +49,7 @@ def main(mode=None):
 
     # build the model and initialize
 
+
     model = NCLG(config)
     model.load()
 
@@ -94,6 +95,7 @@ def load_config(mode=None):
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--path', '--checkpoints', type=str, default='checkpoints',
+    parser.add_argument('--path', '--checkpoints', type=str, default='/Users/tinazhang/Desktop/projects/cfgGlobalSmile/checkpoints',
                         help='model checkpoints path (default: ./checkpoints)')
 
     parser.add_argument('--model', type=int, default='2', choices=[1, 2, 3],

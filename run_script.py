@@ -10,7 +10,7 @@ import subprocess
 import tempfile
 import yaml
 
-folder = "/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/script_test"
+folder = "/Users/tinazhang/Desktop/projects/cfgGlobalSmile/script_test"
 photo = 'photo_01.jpg'
 masked = 'masked_01.jpg'
 
@@ -93,7 +93,7 @@ print(f'Finished generating binary mask...')
 # ----------------------------------
 # Make Flist Files and Set up Config
 # ----------------------------------
-config = '/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/checkpoints/config.yml'
+config = '/Users/tinazhang/Desktop/projects/cfgGlobalSmile/checkpoints/config.yml'
 
 def make_flist(tmp_dir, name, src_dir, filename):
     """Creates a one‐line flist file under tmp_dir/name.txt pointing to src_dir/filename"""
@@ -134,7 +134,7 @@ with tempfile.TemporaryDirectory() as tmp:
     with open(tmp_cfg, 'w') as f:
         yaml.safe_dump(cfg, f)
 
-    canonical_cfg = '/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/checkpoints/config.yml'
+    canonical_cfg = '/Users/tinazhang/Desktop/projects/cfgGlobalSmile/checkpoints/config.yml'
 
     # make a backup name
     backup_cfg = canonical_cfg + '.bak'
@@ -222,4 +222,3 @@ with tempfile.TemporaryDirectory() as tmp:
 
 # if __name__ == '__main__':
 #     main()
-

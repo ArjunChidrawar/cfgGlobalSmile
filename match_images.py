@@ -1,8 +1,8 @@
 import os
 
 # paths to your two flists
-flist1 = '/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/cleft_mask.txt'          # contains .jpg paths
-flist2 = '/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/cleft_landmarks_flist.txt'  # contains .txt paths
+flist1 = '/Users/tinazhang/Desktop/projects/cfgGlobalSmile/cleft_mask.txt'          # contains .jpg paths
+flist2 = '/Users/tinazhang/Desktop/projects/cfgGlobalSmile/cleft_landmarks_flist.txt'  # contains .txt paths
 
 # load lines
 with open(flist1) as f:
@@ -26,4 +26,3 @@ with open(flist1, 'w') as f:
     f.write("\n".join(filtered1) + "\n")
 with open(flist2, 'w') as f:
     f.write("\n".join(filtered2) + "\n")
-

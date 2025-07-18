@@ -2,12 +2,12 @@ import cv2
 import os
 import numpy as np
 
-input_dir = "/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/celeba_hq_256"
-output_dir = "/Users/arjunchidrawar/Desktop/cfgGlobalSmile/INCLG/masked_images"
+input_dir = "/Users/tinazhang/Desktop/projects/cfgGlobalSmile/celeba_hq_256"
+output_dir = "/Users/tinazhang/Desktop/projects/cfgGlobalSmile/masked_images"
 
 count = 0
 for file_name in os.listdir(input_dir):
-    
+
     if os.path.exists(os.path.join(output_dir, file_name)):
         continue
     if file_name in ["01439.jpg", "08722.jpg", "13427.jpg", ".DS_Store"]:
@@ -16,7 +16,7 @@ for file_name in os.listdir(input_dir):
 
     if count%50 == 0:
         print(f'finished processing {count} images')
-    
+
     file_path = os.path.join(input_dir, file_name)
 
     # Load your image
@@ -57,6 +57,6 @@ for file_name in os.listdir(output_dir):
     new_name = "masked_" + file_name
     new_path = os.path.join(output_dir, new_name)
     os.rename(old_path, new_path)
-    
+
 print(len(os.listdir(output_dir)))
 print(len(os.listdir(input_dir)))

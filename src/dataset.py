@@ -32,6 +32,7 @@ class Dataset(torch.utils.data.Dataset):
         # masks are loaded non random
 
 
+
     def __len__(self):
         return len(self.data)
 
@@ -71,6 +72,9 @@ class Dataset(torch.utils.data.Dataset):
 
         imgh,imgw = target_shape[0:2]
         landmarks = np.genfromtxt(self.landmark_data[index])
+        print(f"Loading landmarks from: {self.landmark_data[index]}")
+        print(f"Landmarks shape before reshape: {landmarks.shape}, expected: {(self.config.LANDMARK_POINTS, 2)}")
+        print(f"Landmarks raw: {landmarks}")
         landmarks = landmarks.reshape(self.config.LANDMARK_POINTS, 2)
 
         if self.input_size != 0:
@@ -196,7 +200,7 @@ class Dataset(torch.utils.data.Dataset):
 
             if os.path.isfile(flist):
                 try:
-                    return np.genfromtxt(flist, dtype=np.str_, encoding='utf-8')
+                    return np.genfromtxt(flist, dtype=np.str, encoding='utf-8')
                 except Exception as e:
                     print(e)
                     return [flist]

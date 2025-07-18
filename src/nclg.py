@@ -12,6 +12,7 @@ from cv2 import circle
 from PIL import Image
 import optuna
 
+
 '''
 This repo is modified basing on Edge-Connect
 https://github.com/knazeri/edge-connect
@@ -208,10 +209,7 @@ class NCLG():
                     # print('\nstart sample...\n')
                     outputs_img_val, outputs_lmk_val, gen_loss_val, dis_loss_val, logs_val, gen_gan_loss_val, gen_l1_loss_val, gen_content_loss_val, gen_style_loss_val, tv_loss_val, lmk_loss_val = self.sample()
                     print('g_Loss_val = %f' % (gen_loss_val.item()))
-                # evaluate model at checkpoints
-                if self.config.EVAL_INTERVAL and iteration % self.config.EVAL_INTERVAL == 0 and self.config.MODEL == 2:
-                    print('\nstart eval...\n')
-                    self.eval()
+
                 # save model at checkpoints
                 if self.config.SAVE_INTERVAL and iteration % self.config.SAVE_INTERVAL == 0:
                     self.save()
