@@ -16,7 +16,7 @@ fa = face_alignment.FaceAlignment(face_alignment.LandmarksType.TWO_D,
 
 count = 0
 for file_name in os.listdir(input_dir):
-    if file_name.lower().endswith('.png'):
+    if file_name.lower().endswith((".png", ".jpg", ".jpeg")):
         file_path = os.path.join(input_dir, file_name)
         img = io.imread(file_path)
 
@@ -35,9 +35,10 @@ for file_name in os.listdir(input_dir):
             cv2.circle(img_landmarks, (int(x), int(y)), 2, (0, 255, 0), -1)
 
         img_bgr = cv2.cvtColor(img_landmarks, cv2.COLOR_RGB2BGR)
+        base_name = os.path.splitext(file_name)[0]
         landmarked_jpg_path = os.path.join(
             output_dir,
-            file_name.replace('.png', '_landmarks.png')
+            f"{base_name}_landmarks.png"
         )
         cv2.imwrite(landmarked_jpg_path, img_bgr)
 
@@ -49,7 +50,7 @@ for file_name in os.listdir(input_dir):
         # Create the txt file path
         txt_file_path = os.path.join(
             txt_output_dir,
-            file_name.replace('.png', '.txt')
+            f"{base_name}.txt"
         )
         with open(txt_file_path, "w") as f:
             f.write(line + "\n")  # one line of coords

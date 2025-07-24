@@ -15,6 +15,10 @@ def get_basename_no_ext(filename):
     name = os.path.splitext(base)[0]
     return name
 
+def is_augmented(filename):
+    # Define a rule: augmented files contain '_aug_' in their basename
+    return '_aug_' in filename
+
 # Read all file lists
 mask_files = read_flist(mask_flist)
 no_mask_files = read_flist(no_mask_flist)
@@ -38,6 +42,11 @@ def filter_flist(flist, flist_path):
             f.write(line + '\n')
     for line in removed:
         print(f"Removed from {flist_path}: {line}")
+    # Count stats
+    total = len(kept)
+    num_aug = sum(is_augmented(get_basename_no_ext(f)) for f in kept)
+    num_orig = total - num_aug
+    print(f"{flist_path}: {total} entries (original: {num_orig}, augmented: {num_aug})")
 
 filter_flist(mask_files, mask_flist)
 filter_flist(no_mask_files, no_mask_flist)
