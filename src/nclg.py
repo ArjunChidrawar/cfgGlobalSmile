@@ -109,7 +109,8 @@ class NCLG():
             for fold, (train_idx, val_idx) in enumerate(kfold.split(indices)):
                 print(f"\n===== Fold {fold+1}/{k_folds} =====")
                 train_subset = Subset(dataset, list(train_idx))
-                val_subset = Subset(dataset, list(val_idx))
+                # Always use the original self.val_dataset for validation
+                val_subset = self.val_dataset
                 train_loader = DataLoader(
                     dataset=train_subset,
                     batch_size=self.config.BATCH_SIZE,
@@ -117,22 +118,13 @@ class NCLG():
                     drop_last=True,
                     shuffle=True
                 )
-                if k_folds > 1:
-                    val_loader = DataLoader(
-                        dataset=val_subset,
-                        batch_size=self.config.BATCH_SIZE,
-                        num_workers=2,
-                        drop_last=False,
-                        shuffle=False
-                    )
-                else:
-                    val_loader = DataLoader(
-                        dataset=val_subset,
-                        batch_size=self.config.BATCH_SIZE,
-                        num_workers=2,
-                        drop_last=False,
-                        shuffle=False
-                    )
+                val_loader = DataLoader(
+                    dataset=val_subset,
+                    batch_size=self.config.BATCH_SIZE,
+                    num_workers=2,
+                    drop_last=False,
+                    shuffle=False
+                )
                 best_val_loss = float('inf')
                 best_epoch = 0
                 epochs_no_improve = 0

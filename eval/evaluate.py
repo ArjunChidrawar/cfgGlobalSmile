@@ -6,64 +6,76 @@ from skimage.io import imread
 import numpy as np
 
 # Directories
-outputs_dir = 'results/inpaint/result'
+outputs_dir = 'results_orig/inpaint/result'
 postop_dir = 'augment/augmented_no_mask'
 
 # Output CSV
-csv_path = 'outputs_2/evaluation_results.csv'
+csv_path = 'outputs_orig/evaluation_results.csv'
+
+# Flist path
+flist_path = 'output_flist/val_images.flist'
 
 # Helper to get base name without extension
 get_base = lambda path: os.path.splitext(os.path.basename(path))[0]
 
-# Gather output images
-output_images = sorted(glob.glob(os.path.join(outputs_dir, '*.png')) + glob.glob(os.path.join(outputs_dir, '*.jpg')))
+# Read image basenames from flist
+with open(flist_path, 'r') as f:
+    image_basenames = [os.path.splitext(os.path.basename(line.strip()))[0] for line in f if line.strip()]
 
 results = []
 
-for out_path in output_images:
-    base = get_base(out_path)
-    # Try to find the corresponding post-op image
+for base in image_basenames:
+    # Try both .png and .jpg for output image
+    out_path = os.path.join(outputs_dir, f"{base}.png")
+    if not os.path.exists(out_path):
+        out_path = os.path.join(outputs_dir, f"{base}.jpg")
+        if not os.path.exists(out_path):
+            print(f"No output image found for {base}")
+            continue
+    # Try both .png and .jpg for postop image
     postop_path = os.path.join(postop_dir, f"{base}.png")
+    if not os.path.exists(postop_path):
+        postop_path = os.path.join(postop_dir, f"{base}.jpg")
+        if not os.path.exists(postop_path):
+            print(f"No post-op image found for {base}")
+            continue
 
-    if os.path.exists(postop_path):
-        try:
-            # Load images
-            output_img = imread(out_path)
-            postop_img = imread(postop_path)
+    try:
+        # Load images
+        output_img = imread(out_path)
+        postop_img = imread(postop_path)
 
-            # Ensure same size (resize post-op to match output if needed)
-            if output_img.shape != postop_img.shape:
-                from skimage.transform import resize
-                postop_img = resize(postop_img, output_img.shape, preserve_range=True).astype(postop_img.dtype)
+        # Ensure same size (resize post-op to match output if needed)
+        if output_img.shape != postop_img.shape:
+            from skimage.transform import resize
+            postop_img = resize(postop_img, output_img.shape, preserve_range=True).astype(postop_img.dtype)
 
-            # Convert to float for metrics
-            output_img = output_img.astype(np.float64) / 255.0
-            postop_img = postop_img.astype(np.float64) / 255.0
+        # Convert to float for metrics
+        output_img = output_img.astype(np.float64) / 255.0
+        postop_img = postop_img.astype(np.float64) / 255.0
 
-            # Calculate metrics
-            psnr_val = psnr(postop_img, output_img, data_range=1.0)
+        # Calculate metrics
+        psnr_val = psnr(postop_img, output_img, data_range=1.0)
 
-            # SSIM with proper channel handling
-            if len(output_img.shape) == 3 and output_img.shape[2] == 3:
-                ssim_val = ssim(postop_img, output_img, channel_axis=2, data_range=1.0)
-            else:
-                ssim_val = ssim(postop_img, output_img, data_range=1.0)
+        # SSIM with proper channel handling
+        if len(output_img.shape) == 3 and output_img.shape[2] == 3:
+            ssim_val = ssim(postop_img, output_img, channel_axis=2, data_range=1.0)
+        else:
+            ssim_val = ssim(postop_img, output_img, data_range=1.0)
 
-            mae_val = np.mean(np.abs(postop_img - output_img))
+        mae_val = np.mean(np.abs(postop_img - output_img))
 
-            results.append({
-                'Image': base,
-                'PSNR': psnr_val,
-                'SSIM': ssim_val,
-                'MAE': mae_val
-            })
+        results.append({
+            'Image': base,
+            'PSNR': psnr_val,
+            'SSIM': ssim_val,
+            'MAE': mae_val
+        })
 
-            print(f"{base}: PSNR={psnr_val:.3f}, SSIM={ssim_val:.3f}, MAE={mae_val:.3f}")
+        print(f"{base}: PSNR={psnr_val:.3f}, SSIM={ssim_val:.3f}, MAE={mae_val:.3f}")
 
-        except Exception as e:
-            print(f"Error processing {base}: {e}")
-    else:
-        print(f"No post-op image found for {base}")
+    except Exception as e:
+        print(f"Error processing {base}: {e}")
 
 # Save results to CSV
 if results:
@@ -118,7 +130,7 @@ if results:
     }
 
     # Save statistics to a separate CSV (append if exists)
-    stats_csv_path = 'outputs_2/evaluation_statistics.csv'
+    stats_csv_path = 'outputs_orig/evaluation_statistics.csv'
     os.makedirs(os.path.dirname(stats_csv_path), exist_ok=True)
     file_exists = os.path.isfile(stats_csv_path)
 
